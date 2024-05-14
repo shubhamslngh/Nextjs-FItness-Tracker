@@ -2,8 +2,21 @@ import React, { useState, useRef } from 'react';
 import Navigation from '../components/Navigation';
 import { useDrag } from '@use-gesture/react';
 import ProgressChart from '../components/ProgressChart';
+import Image from 'next/image';
 
-const initialGoals = [
+type Goal = {
+  id: number;
+  text: string;
+  completed: boolean;
+  bgColor: string;
+};
+
+type ProgressData = {
+  date: Date;
+  percentage: number;
+};
+
+const initialGoals: Goal[] = [
   { id: 1, text: "Workout for 20 mins", completed: true, bgColor: "#7DA7CE" },
   { id: 2, text: "Read book for 15 mins", completed: true, bgColor: "#0E77D9" },
   { id: 3, text: "30 mins walk", completed: true, bgColor: "#D15439" },
@@ -12,8 +25,8 @@ const initialGoals = [
 ];
 
 export default function Home() {
-  const [goals, setGoals] = useState(initialGoals);
-  const [progressData, setProgressData] = useState([
+  const [goals, setGoals] = useState<Goal[]>(initialGoals);
+  const [progressData, setProgressData] = useState<ProgressData[]>([
     { date: new Date(2023, 4, 28), percentage: 92 },
     { date: new Date(2023, 4, 30), percentage: 100 },
     { date: new Date(2023, 5, 2), percentage: 98 },
@@ -28,7 +41,7 @@ export default function Home() {
     setGoals(allCompleted);
   };
 
-  const toggleGoal = (id) => {
+  const toggleGoal = (id: number) => {
     const updatedGoals = goals.map(goal =>
       goal.id === id ? { ...goal, completed: !goal.completed } : goal
     );
@@ -46,30 +59,35 @@ export default function Home() {
   const completedCount = goals.filter(goal => goal.completed).length;
   const progress = Math.round((completedCount / goals.length) * 100);
 
-  const dragRef = useRef();
+  const dragRef = useRef<HTMLButtonElement>(null);
   const [dragging, setDragging] = useState(false);
 
-  const bind = useDrag(({ down, movement: [mx], memo = dragRef.current.offsetLeft }) => {
+  const bind = useDrag(({ down, movement: [mx], memo = dragRef.current?.offsetLeft || 0 }) => {
     if (down) {
       setDragging(true);
-      const newLeft = Math.min(Math.max(memo + mx, 0), dragRef.current.parentElement.offsetWidth - dragRef.current.offsetWidth);
-      dragRef.current.style.left = `${newLeft}px`;
-      if (newLeft >= dragRef.current.parentElement.offsetWidth - dragRef.current.offsetWidth) {
+      const newLeft = Math.min(Math.max(memo + mx, 0), dragRef.current?.parentElement?.offsetWidth! - dragRef.current?.offsetWidth!);
+      if (dragRef.current) {
+        dragRef.current.style.left = `${newLeft}px`;
+      }
+      if (newLeft >= dragRef.current?.parentElement?.offsetWidth! - dragRef.current?.offsetWidth!) {
         markAllAsCompleted();
       }
     } else {
       setDragging(false);
-      dragRef.current.style.left = '0px'; 
+      if (dragRef.current) {
+        dragRef.current.style.left = '0px';
+      }
     }
     return memo;
   }, { axis: 'x' });
+
 
   return (
      <div className=" mx-auto grid bg-[#212121] ">
      <div className="container grid bg-[#212121] mx-auto p-4">
       <div className="container place-content-space-between bg-gradient-to-r from-[#7DA7CE] to-[#0E77D9] w-full h-auto mb-4 rounded-xl flex items-center justify-between p-4">
         <div className="flex items-center">
-          <img src="https://s3-alpha-sig.figma.com/img/d485/57f7/d96dd5e1600b20f541cfe92bfa3ed5f7?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=niiDYXPpbccj98CqrL4ahcAolTQNreZ0Xa4FhnOMyuYYAOy9IVjzdpBNU7Y~o1I7hZDaUsNnibefX2MHTMqnO5ABTluPEaQhptd07x9AU1nsCwTNSEjwdWuT6tQGitS7NkRSgEAXvuSKYWeuPza3HwqHknu-Z18M0fgPaQ6OHsiydwkCiOqakosEI59qvJm0dgFi98xHSGBKCahGQyQcOOAy5J~VN0LUeegUfzaeCa7EJaVL16rj5amCrnG4P2bMjC0O434XFPKdcLXhzIxtaxzl46JeZLCSvEp3Bjo65wpx2eq2f9Y-hmFEdxWsRH-VZdpnZAZKcsCyM9uoGbyEPw__" alt="Today's Goal Icon" className="w-12 h-12"/>
+          <Image src="https://s3-alpha-sig.figma.com/img/d485/57f7/d96dd5e1600b20f541cfe92bfa3ed5f7?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=niiDYXPpbccj98CqrL4ahcAolTQNreZ0Xa4FhnOMyuYYAOy9IVjzdpBNU7Y~o1I7hZDaUsNnibefX2MHTMqnO5ABTluPEaQhptd07x9AU1nsCwTNSEjwdWuT6tQGitS7NkRSgEAXvuSKYWeuPza3HwqHknu-Z18M0fgPaQ6OHsiydwkCiOqakosEI59qvJm0dgFi98xHSGBKCahGQyQcOOAy5J~VN0LUeegUfzaeCa7EJaVL16rj5amCrnG4P2bMjC0O434XFPKdcLXhzIxtaxzl46JeZLCSvEp3Bjo65wpx2eq2f9Y-hmFEdxWsRH-VZdpnZAZKcsCyM9uoGbyEPw__" alt="Today's Goal Icon" className="w-12 h-12"/>
           <div className="ml-4">
             <p>Your Daily Goal Almost Done</p>
             <p className="text-white text-[60%] mb-1 font-thin">{completedCount} out of {goals.length} Completed</p>
@@ -85,8 +103,9 @@ export default function Home() {
         </div>
       </div>
       <div className="flex place-content-between items-center p-2">
-        <p className='text-white mr-2'>Today's Goal</p>
-        <img src="https://s3-alpha-sig.figma.com/img/210a/8de5/6f295743678d95c92f172e86e2102679?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lqaScr0cZULLFRy0Rhb10SJBfTyMah78dAgRkLCntQYtTPPbaXppBnjp-6pO2pcozux3hIpAs0Sz1kLhPS-7L97KnHDk0RJDph-OVM-zYJwZmBPyz5Pjb6~RVNjvuQowImy2T-T4GKCWTGaMdZcX06vOysrW6OwWEALnDO7P5NdT~ffeNF6l2Pk9wE-DlNznoDnrovqnTcWp8AFDg8NN--lbW2srl4WxwOjL2I2nGNSp03VAcRJkQuj0uoFQAY4T2qItw3wHiv2XxXT9nrxJynbWuVpocKQs06YSVYliERKCjPnBM5bia6Lh3ACdLj4rVaN8bAmlW7nIWLlKGnSmTQ__" alt="Today's Goal Icon" className="w-9 h-full"/>
+   <p className='text-white mr-2'>Today&apos;s Goal</p>
+
+        <Image src="https://s3-alpha-sig.figma.com/img/210a/8de5/6f295743678d95c92f172e86e2102679?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lqaScr0cZULLFRy0Rhb10SJBfTyMah78dAgRkLCntQYtTPPbaXppBnjp-6pO2pcozux3hIpAs0Sz1kLhPS-7L97KnHDk0RJDph-OVM-zYJwZmBPyz5Pjb6~RVNjvuQowImy2T-T4GKCWTGaMdZcX06vOysrW6OwWEALnDO7P5NdT~ffeNF6l2Pk9wE-DlNznoDnrovqnTcWp8AFDg8NN--lbW2srl4WxwOjL2I2nGNSp03VAcRJkQuj0uoFQAY4T2qItw3wHiv2XxXT9nrxJynbWuVpocKQs06YSVYliERKCjPnBM5bia6Lh3ACdLj4rVaN8bAmlW7nIWLlKGnSmTQ__" alt="Today's Goal Icon" className="w-9 h-full"/>
       </div>
       <ul>
         {goals.map(goal => (
