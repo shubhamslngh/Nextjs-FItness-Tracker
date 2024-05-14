@@ -2,11 +2,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const Navigation = () => {
+const Navigation: React.FC = () => {
   const router = useRouter();
-  const [activePath, setActivePath] = useState(router.pathname);
+  const [activePath, setActivePath] = useState<string>(router.pathname);
 
-  const handleLinkClick = (path) => {
+  const handleLinkClick = (path: string) => {
     setActivePath(path);
   };
 
