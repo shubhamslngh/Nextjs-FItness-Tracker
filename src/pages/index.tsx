@@ -65,7 +65,7 @@ export default function Home() {
   }, { axis: 'x' });
 
   return (
-     <div className="container mx-auto ">
+     <div className=" mx-auto grid bg-[#212121] ">
      <div className="container grid bg-[#212121] mx-auto p-4">
       <div className="container place-content-space-between bg-gradient-to-r from-[#7DA7CE] to-[#0E77D9] w-full h-auto mb-4 rounded-xl flex items-center justify-between p-4">
         <div className="flex items-center">
@@ -144,10 +144,11 @@ export default function Home() {
           Track
         </button>
       </div>
-     <div className="container w-full h-1/2 bg-[#282828] p-2 rounded-lg mb-3 mt-10">
-        <ProgressChart progressData={progressData} />
+      <div className="h-1/2 w-[100%] bg-[#282828] rounded-lg mb-3 mt-10">
+        <div className="w-full h-full ">
+          <ProgressChart progressData={progressData} />
+        </div>
       </div>
-    
       </div>
        <div className='w-full'>
         <Navigation />

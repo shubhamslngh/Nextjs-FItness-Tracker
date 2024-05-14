@@ -17,32 +17,38 @@ const ProgressChart = ({ progressData = [] }) => {
         <VictoryChart
             theme={VictoryTheme.material}
             domainPadding={{ x: 10 }}
-            width={500}
-//             animate={{
-//             duration: 2000,
-//             onLoad: { duration: 1000 }
-// }} 
+            
+            animate={{
+            duration: 2000,
+            onLoad: { duration: 1000 }
+}} 
         >
             <VictoryAxis
                 tickFormat={(x) => x}
                 style={{
                     tickLabels: { fontSize: 10, padding: 5, fill: 'grey' }, // Change text color to white
                     axis: { stroke: '' },
+                    ticks: {stroke: "none", size: 0},
                     grid: { stroke: 'none' }  // Remove grid lines
                 }}
             />
             <VictoryAxis 
                 dependentAxis 
+                tickFormat={(t) => `${Math.round(t)}%`}
                 style={{
                     tickLabels: { fontSize: 10, padding: 5, fill: 'grey' }, // Change text color to white
                     grid: { stroke: 'none' } , // Remove grid lines
-                    axis: { stroke: '' }
+                    axis: { stroke: '' },
+                    ticks: { stroke: "none", size: 0 },
+                    
+
 
                 }}
             />
             <VictoryBar
                 data={formattedData}
                 x="date"
+                
                 y="percentage"
                 alignment="middle"
                 barRatio={0.8}
