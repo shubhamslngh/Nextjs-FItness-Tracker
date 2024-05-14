@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import Navigation from '../components/Navigation';
+import Navigation from '@components/Navigation';
 import { useDrag } from '@use-gesture/react';
-import ProgressChart from '../components/ProgressChart';
+import ProgressChart from '@components/ProgressChart';
 import Image from 'next/image';
 
 type Goal = {
