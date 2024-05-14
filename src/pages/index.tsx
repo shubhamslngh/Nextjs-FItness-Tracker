@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import Navigation from 'src/components/Navigation';
+import Navigation from '../components/Navigation';
 import { useDrag } from '@use-gesture/react';
-import ProgressChart from 'src/components/ProgressChart';
+import ProgressChart from '../components/ProgressChart';
 import Image from 'next/image';
 
 type Goal = {
@@ -87,7 +87,9 @@ export default function Home() {
      <div className="container grid bg-[#212121] mx-auto p-4">
       <div className="container place-content-space-between bg-gradient-to-r from-[#7DA7CE] to-[#0E77D9] w-full h-auto mb-4 rounded-xl flex items-center justify-between p-4">
         <div className="flex items-center">
-          <Image src="https://s3-alpha-sig.figma.com/img/d485/57f7/d96dd5e1600b20f541cfe92bfa3ed5f7?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=niiDYXPpbccj98CqrL4ahcAolTQNreZ0Xa4FhnOMyuYYAOy9IVjzdpBNU7Y~o1I7hZDaUsNnibefX2MHTMqnO5ABTluPEaQhptd07x9AU1nsCwTNSEjwdWuT6tQGitS7NkRSgEAXvuSKYWeuPza3HwqHknu-Z18M0fgPaQ6OHsiydwkCiOqakosEI59qvJm0dgFi98xHSGBKCahGQyQcOOAy5J~VN0LUeegUfzaeCa7EJaVL16rj5amCrnG4P2bMjC0O434XFPKdcLXhzIxtaxzl46JeZLCSvEp3Bjo65wpx2eq2f9Y-hmFEdxWsRH-VZdpnZAZKcsCyM9uoGbyEPw__" alt="Today's Goal Icon" className="w-12 h-12"/>
+          <Image src="https://s3-alpha-sig.figma.com/img/d485/57f7/d96dd5e1600b20f541cfe92bfa3ed5f7?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=niiDYXPpbccj98CqrL4ahcAolTQNreZ0Xa4FhnOMyuYYAOy9IVjzdpBNU7Y~o1I7hZDaUsNnibefX2MHTMqnO5ABTluPEaQhptd07x9AU1nsCwTNSEjwdWuT6tQGitS7NkRSgEAXvuSKYWeuPza3HwqHknu-Z18M0fgPaQ6OHsiydwkCiOqakosEI59qvJm0dgFi98xHSGBKCahGQyQcOOAy5J~VN0LUeegUfzaeCa7EJaVL16rj5amCrnG4P2bMjC0O434XFPKdcLXhzIxtaxzl46JeZLCSvEp3Bjo65wpx2eq2f9Y-hmFEdxWsRH-VZdpnZAZKcsCyM9uoGbyEPw__" alt="Today's Goal Icon"
+        width={500}
+        height={300} className="w-12 h-12"/>
           <div className="ml-4">
             <p>Your Daily Goal Almost Done</p>
             <p className="text-white text-[60%] mb-1 font-thin">{completedCount} out of {goals.length} Completed</p>
@@ -105,7 +107,9 @@ export default function Home() {
       <div className="flex place-content-between items-center p-2">
    <p className='text-white mr-2'>Today&apos;s Goal</p>
 
-        <Image src="https://s3-alpha-sig.figma.com/img/210a/8de5/6f295743678d95c92f172e86e2102679?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lqaScr0cZULLFRy0Rhb10SJBfTyMah78dAgRkLCntQYtTPPbaXppBnjp-6pO2pcozux3hIpAs0Sz1kLhPS-7L97KnHDk0RJDph-OVM-zYJwZmBPyz5Pjb6~RVNjvuQowImy2T-T4GKCWTGaMdZcX06vOysrW6OwWEALnDO7P5NdT~ffeNF6l2Pk9wE-DlNznoDnrovqnTcWp8AFDg8NN--lbW2srl4WxwOjL2I2nGNSp03VAcRJkQuj0uoFQAY4T2qItw3wHiv2XxXT9nrxJynbWuVpocKQs06YSVYliERKCjPnBM5bia6Lh3ACdLj4rVaN8bAmlW7nIWLlKGnSmTQ__" alt="Today's Goal Icon" className="w-9 h-full"/>
+        <Image src="https://s3-alpha-sig.figma.com/img/210a/8de5/6f295743678d95c92f172e86e2102679?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lqaScr0cZULLFRy0Rhb10SJBfTyMah78dAgRkLCntQYtTPPbaXppBnjp-6pO2pcozux3hIpAs0Sz1kLhPS-7L97KnHDk0RJDph-OVM-zYJwZmBPyz5Pjb6~RVNjvuQowImy2T-T4GKCWTGaMdZcX06vOysrW6OwWEALnDO7P5NdT~ffeNF6l2Pk9wE-DlNznoDnrovqnTcWp8AFDg8NN--lbW2srl4WxwOjL2I2nGNSp03VAcRJkQuj0uoFQAY4T2qItw3wHiv2XxXT9nrxJynbWuVpocKQs06YSVYliERKCjPnBM5bia6Lh3ACdLj4rVaN8bAmlW7nIWLlKGnSmTQ__" alt="Today's Goal Icon" 
+        width={500}
+        height={300} unoptimized className="w-9 h-full"/>
       </div>
       <ul>
         {goals.map(goal => (
