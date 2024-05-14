@@ -16,7 +16,7 @@
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
     }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  },, "src/components/ProgressChart.js", "src/components/navigation.js"
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": ["node_modules"]
 }
